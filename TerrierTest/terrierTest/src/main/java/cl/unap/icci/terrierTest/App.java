@@ -5,10 +5,7 @@ package cl.unap.icci.terrierTest;
  *
  */
 
-import java.io.File; 
-import java.io.FileReader;
 import java.util.Arrays;
-import java.util.HashMap; 
 import org.terrier.indexing.Collection; 
 import org.terrier.indexing.SimpleFileCollection; 
 import org.terrier.structures.indexing.Indexer; 
@@ -21,18 +18,18 @@ public class App
 {
     public static void main( String[] args ) throws Exception {
     	// Directory containing files to index
-        String aDirectoryToIndex = "C:\\Users\\zaess\\Desktop\\probando\\docs\\";
+        String aDirectoryToIndex = "/home/villalon/Escritorio/GitHub Projects/tesis-mario/TerrierTest/Docs/";
 
         // Configure Terrier
-        ApplicationSetup.setProperty("indexer.meta.forward.keys", "test.html");
+        ApplicationSetup.setProperty("indexer.meta.forward.keys", "filename");
         ApplicationSetup.setProperty("indexer.meta.forward.keylens", "200");
 
-        Indexer indexer = new BasicIndexer("C:\\Users\\zaess\\Desktop\\probando\\path\\", "data");
+        Indexer indexer = new BasicIndexer("/home/villalon/Escritorio/GitHub Projects/tesis-mario/TerrierTest/Path/", "data");
         Collection coll = new SimpleFileCollection(Arrays.asList(aDirectoryToIndex), true);
         indexer.index(new Collection[]{coll});
         //indexer.close();
 
-        Index index = Index.createIndex("C:\\Users\\zaess\\Desktop\\probando\\path\\", "data");
+        Index index = Index.createIndex("/home/villalon/Escritorio/GitHub Projects/tesis-mario/TerrierTest/Path/", "data");
 
         // Enable the decorate enhancement
         ApplicationSetup.setProperty("querying.postfilters", "decorate:org.terrier.querying.SimpleDecorate");
