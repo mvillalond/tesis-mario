@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -71,5 +73,21 @@ public class HelloLucene {
         // use a string field for isbn because we don't want it tokenized
         doc.add(new StringField("isbn", isbn, Field.Store.YES));
         w.addDocument(doc);
+    }
+    
+    private Document getDocument(File file) throws IOException{
+    	Document document = new Document();
+    	
+    	//index file contents
+    	Field contentField = new Field("content", new FileReader(file), TextField.TYPE_STORED);
+    	Field fileNameField = new Field("filename", file.getName(), TextField.TYPE_STORED);
+    	Field filePathField = new Field("filepath", file.getCanonicalPath(), TextField.TYPE_STORED);
+    	
+    	document.add(contentField);
+    	document.add(fileNameField);
+    	document.add(filePathField);
+    	
+    	return document;
+    	
     }
 }
